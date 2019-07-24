@@ -149,11 +149,11 @@ def P_E(S, m, p):
             P_S = P_S*p[S[j]]
     P = 1
     for i in range(m-seq_len+1):
-        Q[i,0] = (1-p[1])**i
+        Q[i,0] = (1-p[S[0]])**i
         for j in range(1, seq_len):
             Q[i,j] = 0
             for k in range(i):
-                Q[i,j] = Q[i,j] + Q[i-k, j-1]*(1-p[j])**k
+                Q[i,j] = Q[i,j] + Q[i-k, j-1]*(1-p[S[j]])**k
         P = P + Q[i,seq_len]
     P = P_S * P
 
