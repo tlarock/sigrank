@@ -27,11 +27,15 @@ def SigRank(database, min_support):
     n = len(database)
     sig_rank = dict()
     for support, seq in prefix_span:
-        probability = P(seq, probs, alphas, max_set_size)
-        relative_support = support/n
-        sig_rank[tuple(seq)] = (np.sqrt(n)*(relative_support - probability)) / np.sqrt(probability*(1-probability))
+        sig_rank[tuple(seq)] = compute_sig_rank(seq, probs, alphas, max_set_size, support, n)
 
     return sig_rank
+
+
+def compute_sig_rank(seq, probs, alphas, max_set_size, support, n):
+    probability = P(seq, probs, alphas, max_set_size)
+    relative_support = support/n
+    return (np.sqrt(n)*(relative_support - probability)) / np.sqrt(probability*(1-probability))
 
 def compute_prefix_span(database, minRelSupport):
     r'''
