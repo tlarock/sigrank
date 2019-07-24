@@ -15,6 +15,8 @@ class SigRank:
 
     def __init__(self, database, min_support):
         self.database = database
+        ## TODO min_support should be relative support, but isn't.
+        ## Not sure how to deal with that.
         self.min_support = min_support
         self.compute()
 
@@ -141,9 +143,9 @@ class SigRank:
         ## make up p are the 0th-order Markov chain
         ## probabilities for each element in S.
 
-        ## NOTE 2: I am reversing w and m compared to the
-        ## Gwadera et al. 2005 paper to better match with
-        ## the 2010 paper. Here w='m' and m=|s| as in G2010.
+        ## NOTE 2: I'm using m and |s| from the 2010 paper
+        ## by Gawdera et al., rather then w and m from the
+        ## original 2005 paper.
 
         seq_len = len(S)
         Q = np.zeros((m-seq_len+1, seq_len+1))
